@@ -1,3 +1,23 @@
+my notes:
+
+
+git checkout 1-add-sass-loaders
+
+Set up Sass with Webpack
+
+So now for the webpack portion of all of this. Like we talked about earlier, we are going to use webpack loaders to turn our sass into css. First let’s install all the tools we’ll need:
+
+    npm i -D style-loader node-sass css-loader sass-loader
+
+Then add this test case to the rules array in your dev webpack config.
+
+    {
+            test: /\.scss$/,
+            use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+    }
+
+
+
 # Webbpack Express Example App
 
 The goal of this repo is be an example of a basic but functional app built on Express and Webpack.
