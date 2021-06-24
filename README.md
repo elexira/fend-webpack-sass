@@ -1,3 +1,51 @@
+# my notes
+
+Steps Followed in the Demonstration Video
+
+In packages.json append the following new entries in "devDependencies":
+
+    "mini-css-extract-plugin": "^0.9.0",
+    "terser-webpack-plugin": "^1.3.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+
+The version may vary with time.
+
+In webpack.prod.js config file, append the new plugin statements:
+
+    const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+    const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+    const TerserPlugin = require('terser-webpack-plugin');
+
+Add the optimization attribute in module.exports section, that will help us to minimize certain files. Notice that the TerserPlugin and OptimizeCSSAssetsPlugin are being initialized here.
+
+    optimization: {
+      minimizer: [new TerserPlugin({}), new OptimizeCSSAssetsPlugin({})],
+      },
+
+Updated the rule section for Sass file loaders:
+
+    {
+    test: /\.scss$/,
+    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+    },
+
+Instantiate the new plugin in the plugin list:
+
+    new MiniCssExtractPlugin({ filename: "[name].css" })
+
+On the terminal, run the following commands:
+
+    npm i -D mini-css-extract-plugin
+    npm i -D optimize-css-assets-webpack-plugin terser-webpack-plugin
+    npm run build-prod
+
+
+What is the purpose of a .map file?
+ 
+Map files keep track of which source files the code in your bundled file comes from. This is incredibbly handy when debugging. Without a map file, you would get an error that says it is coming from like 1783 of bundle.js - which isn’t very helpful, but with a source map turned on it would tell you the file name and line where the error is occuring. Much better!
+
+
+
 # Webbpack Express Example App
 
 The goal of this repo is be an example of a basic but functional app built on Express and Webpack.
